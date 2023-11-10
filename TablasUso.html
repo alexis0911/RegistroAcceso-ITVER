@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Centro de Información ITVER</title>
+    <link rel="icon" href="https://ci.veracruz.tecnm.mx/img/favicon/tecnm.ico">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/estilos.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/fa-svg-with-js.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/iconos.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/estilo-compresion.min.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/jssorStyle.css">
+    <link href="./Centro de Información ITVER_files/slick-theme.css" rel="stylesheet">
+    <link href="./Centro de Información ITVER_files/slick.css" rel="stylesheet">
+    <style>
+        .card:hover {
+            box-shadow: 8px 8px 8px blue;
+            transform: scale(1.2);
+        }
+        
+        .one-time.slick-initialized {
+            visibility: visible;
+        }
+        .titulo {
+            background-color: #1B396A;
+            margin: 0%;
+            text-align: center;
+        }
+        .formulario {
+            color: #777;
+            background-color: #1B396A;
+            text-align: center;
+            padding: 50px 80px;
+            text-align: justify;
+        }
+        #back-button {
+            color: white;
+            background-color: #1B396A;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            right: 20px;
+            border-radius: 10px;
+        }
+        
+    </style>
+    <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Slider -->
+    <header>
+        <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
+        <h2 class="titulo"><b>Solicitud de Material Bibliográfico</b></h2>
+        <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
+    </header>
+    <!-- FORMULARIO -->
+    <main class="formulario">
+        <form id="myForm" action="https://ci.veracruz.tecnm.mx/solicitud_libros.php" method="post" onsubmit="return validateForm()">
+            <!-- Tabla de datos -->
+            <a href="#" id="back-button">Regresar</a>
+            <table style="margin: 1;">
+                <thead>
+                    <tr>
+                        <th>N.</th>
+                        <th>N.Control</th>
+                        <th>Aula</th>
+                        <th>Dia</th>
+                        <th>Hora de entrada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí puedes agregar filas con datos -->
+                    <tr>
+                        <td>Valor1</td>
+                        <td>Valor2</td>
+                        <td>Valor3</td>
+                        <td>Valor4</td>
+                        <td>Valor5</td>
+                    </tr>
+                    <!-- Puedes agregar más filas con datos aquí -->
+                </tbody>
+            </table>
+            <script>
+                // Obtener el botón por su id
+                var backButton = document.getElementById("back-button");
+                // Agregar un evento de clic al botón
+                backButton.addEventListener("click", function() {
+                    // Regresar a la página anterior
+                    window.history.back();
+                });
+            </script>
+        </form>
+    </main>
+</body>
+</html>

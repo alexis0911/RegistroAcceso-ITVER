@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Centro de Información ITVER</title>
+    <link rel="icon" href="https://ci.veracruz.tecnm.mx/img/favicon/tecnm.ico">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/bootstrap.min.css">
+    <style>
+        /* Estilos generales */
+        .card:hover {
+            box-shadow: 8px 8px 8px blue;
+            transform: scale(1.2);
+        }
+        
+        .one-time.slick-initialized {
+            visibility: visible;
+        }
+
+        /* Estilos del encabezado */
+        .titulo {
+            background-color: #1B396A;
+            margin: 0;
+            text-align: center;
+        }
+
+        .barra {
+            width: 100%;
+            background-color: #1B396A;
+            height: 2vw;
+        }
+
+        /* Estilos del contenido principal */
+        .formulario {
+            color: #777;
+            background-color: #1B396A;
+            text-align: center;
+            padding: 50px 80px;
+        }
+
+        #menu-button {
+            color: #1B396A;
+            background-color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 10px;
+        }
+
+        .cuadro {
+            width: 300px;
+            height: 200px;
+            background-color: white;
+            margin: auto;
+            border-radius: 10px;
+
+            /* Usar flexbox para centrar los elementos */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h3 {
+            color: #1B396A; /* Cambiar el color del texto */
+            margin: 0; 
+        }
+
+        input, button {
+            margin: 10px; 
+            width: 50%; 
+            align-self: center; /* Centrar horizontalmente */
+        }
+
+        button {
+            margin-top: auto; /* Posicionar al final del cuadro */
+            
+        }
+    </style>
+    <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="barra"></div> <!-- Usar una clase en lugar de un estilo en línea -->
+        <h2 class="titulo"><b>Registrar</b></h2>
+        <div class="barra"></div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="formulario">
+        <!-- Botón para regresar al menú -->
+        <a href="#" id="menu-button">Menú</a>
+
+        <!-- Cuadro blanco con el formulario -->
+        <div class="cuadro"> <!-- Usar una clase en lugar de un estilo en línea -->
+            
+            <!-- Número de control -->
+            <h3>Número de control</h3>
+
+             <!-- Recuadro para introducir texto -->
+             <!-- Usar una clase en lugar de un estilo en línea -->
+             <!-- Agregar un placeholder para indicar el formato esperado -->
+             <!-- Agregar un id más descriptivo -->
+             <input type="text" id="numero-control" class="input-text" maxlength="10" pattern="[A-Z]\d{8}" required placeholder="Ejemplo: A12345678">
+
+             <!-- Botón para enviar -->
+             <!-- Usar una clase en lugar de un estilo en línea -->
+             <!-- Agregar un id más descriptivo -->
+             <button type="submit" id="enviar-formulario" class="boton-enviar" style="width: 100px;">Enviar</button>
+        
+         </div>
+
+         <!-- Script para redirigir al menú al hacer clic en el botón -->
+         <script>
+             // Obtener el botón por su id
+             var menuButton = document.getElementById("menu-button");
+             // Agregar un evento de clic al botón
+             menuButton.addEventListener("click", function() {
+                 // Redirigir a la página del menú principal
+                 window.location.href = "menu.html";
+             });
+         </script>
+
+         <!-- Script para limpiar el recuadro si no se introduce un dato en 10 segundos -->
+         <script>
+             // Obtener el recuadro por su id
+             var numeroControl = document.getElementById("numero-control");
+             // Crear una variable para guardar el tiempo
+             var timer = null;
+             // Agregar un evento de entrada al recuadro
+             numeroControl.addEventListener("input", function() {
+                 // Limpiar el tiempo anterior
+                 clearTimeout(timer);
+                 // Iniciar un nuevo tiempo de 10 segundos
+                 timer = setTimeout(function() {
+                     // Limpiar el recuadro
+                     numeroControl.value = "";
+                 }, 10000);
+             });
+         </script>
+    </main>
+</body>
+</html>

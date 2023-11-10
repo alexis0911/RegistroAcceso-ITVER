@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es" style="height: 100%;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Centro de Información ITVER</title>
+    <meta name="author" content="TecNM">
+    <meta name="description" content="Página del Tecnológico Nacional de México">
+    <meta name="keywords" content="TecNM, Instituto Tecnológico Nacional de México, Tec, Tecnológico Nacional de México, Universidad">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="copyright" content="TecNM">
+    <meta name="robots" content="ALL">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="https://ci.veracruz.tecnm.mx/img/favicon/tecnm.ico">
+
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/bootstrap.min.css">
+
+    <!-- Mis estilos -->
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/estilos.css">
+
+    <!-- Iconos con Font Awesome -->
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/fa-svg-with-js.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/iconos.css">
+
+    <!-- Se agrega para poder usar las fuentes en el css -->
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/estilo-compresion.min.css">
+    <link rel="stylesheet" href="./Centro de Información ITVER_files/jssorStyle.css">
+
+    <link href="./Centro de Información ITVER_files/slick-theme.css" rel="stylesheet">
+    <link href="./Centro de Información ITVER_files/slick.css" rel="stylesheet">
+
+    <script src="./Centro de Información ITVER_files/jquery-3.2.1.js.descarga"></script>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#desface_noticias").fadeIn(1000);
+            }, 50);
+        });
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#desface").fadeIn(1000);
+            }, 500);
+        });
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#desface_footer").fadeIn(1000);
+            }, 500);
+        });
+        $(document).ready(function() {
+            setTimeout(function() {
+                $("#desface_footer_gob").fadeIn(1000);
+            }, 1000);
+        });
+    </script>
+    <style>
+        .card:hover {
+            box-shadow: 8px 8px 8px blue;
+            transform: scale(1.2);
+        }
+        .one-time {
+			visibility: hidden;
+		}
+
+		.one-time.slick-initialized {
+			visibility: visible;
+		}
+    </style>
+    <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
+</head>
+
+<body style="position: relative; min-height: 100%; top: 0px;">
+
+    <div style="width: 100%;background-color: #1B396A;height:2vw">
+	</div>
+    <div style="width: 100%;margin:auto;padding:0;color:white;font-size:1.3rem;background-color: #1B396A;text-align:center;">
+        <h2 style="background-color: #1B396A;margin:0%;"><b>Solicitud de Material Bibliográfico</b></h2>
+    </div>
+    <div style="width: 100%;background-color: #1B396A;height:2vw">
+	</div>
+
+    <!-- FORMULARIO -->
+    <div style="color: #777;background-color:#1B396A;text-align:center;padding:50px 80px;text-align: justify;">
+        <h1 style="color: red;"></h1>
+        <h1 style="color: white;"></h1>  
+    <form id="myForm" action="https://ci.veracruz.tecnm.mx/solicitud_libros.php" method="post" onsubmit="return validateForm()">
+        <!-- Tabla de datos -->
+<table style="margin: 0 auto;">
+    <thead>
+        <tr>
+            <th>N.Uso</th>
+            <th>N.Control</th>
+            <th>ID</th>
+            <th>Dia</th>
+            <th>Hora de entrada</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Aquí puedes agregar filas con datos -->
+        <tr>
+            <td>Valor1</td>
+            <td>Valor2</td>
+            <td>Valor3</td>
+            <td>Valor4</td>
+            <td>Valor5</td>
+        </tr>
+        <!-- Puedes agregar más filas con datos aquí -->
+    </tbody>
+</table>
+
+      </form>
+    </div>
