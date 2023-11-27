@@ -6,8 +6,6 @@
     <title>Gestión de alumnos</title>
     <link rel="icon" href="https://ci.veracruz.tecnm.mx/img/favicon/tecnm.ico">
 
-
-
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -20,6 +18,21 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
+<!-- Bootstrap-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+        <!-- DataTable -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+            integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="styles.css" />
+  
     <style>
         .card:hover {
             box-shadow: 8px 8px 8px blue;
@@ -100,60 +113,93 @@
     <!-- FORMULARIO -->
     <main class="formulario">
         <form id="myForm"  method="post" onsubmit="return validateForm()">
-            <a href="Menu.html" id="back-button">Regresar</a>
+            <a href="index.php" id="back-button">Regresar</a>
             <a href="Registrar_Alumno.php" id="new-button" class="boton">Nuevo</a>
 
+            <?php
+            // Conectar a la base de datos
+            $mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
 
+            if ($mysqli->connect_error) {
+              die('Error de Conexión (' . $mysqli->connect_errno . ') '
+                  . $mysqli->connect_error);
+            }
+            // Consultar la base de datos
+            $result = $mysqli->query("SELECT idAlumno, nombre, nControl, rfid, carrera, semestre, sexo FROM alumno");
 
-            <table id="example" class="display nowrap" style="width:100%">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td>
-                <td>$320,800</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011-07-25</td>
-                <td>$170,750</td>
-            </tr>
-            <tr>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>San Francisco</td>
-                <td>66</td>
-                <td>2009-01-12</td>
-                <td>$86,000</td>
-        </tfoot>
-    </table>
+            // Comprobar si la consulta fue exitosa
+            if(!$result) {
+              die("Error en la consulta: " . $mysqli->error);
+            }
+
+            // Construir la tabla
+            echo '<table id="example" class="display nowrap" style="width:100%">';
+            echo '<thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>NControl</th>
+                  <th>RFID</th>
+                  <th>Carrera</th>
+                  <th>Semestre</th>
+                  <th>Sexo</th>
+                  <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>';
+
+            // Iterar sobre los resultados y añadirlos a la tabla
+            while($row = $result->fetch_assoc()) {
+              $sexo = $row['sexo'] == 0 ? 'Masculino' : 'Femenino';
+              echo '<tr>
+                  <td>' . $row['idAlumno'] . '</td>
+                  <td>' . $row['nombre'] . '</td>
+                  <td>' . $row['nControl'] . '</td>
+                  <td>' . $row['rfid'] . '</td>
+                  <td>' . $row['carrera'] . '</td>
+                  <td>' . $row['semestre'] . '</td>
+                  <td>' . $sexo . '</td>
+                  <td>
+                    <button type="button" data-id="' . $row['idAlumno'] . '" class="btn btn-sm btn-danger eliminar"><i class="fa-solid fa-trash-can"></i></button>
+                    <button type="button" data-id="' . $row['idAlumno'] . '" class="btn btn-sm btn-primary edit-button"><i class="fa-solid fa-pencil"></i></button>
+                  </td>
+                  </tr>';
+            }
+
+            echo '</tbody></table>';
+
+            // Cerrar la conexión a la base de datos
+            $mysqli->close();
+            ?>
 
             <script>
                 $(document).ready(function() {
-                    $('#example').DataTable( {
-                        dom: 'Bfrtip', // Define where the buttons should appear
-                        buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                        ]
-                        ,"scrollX": true
-                    } );
-                } );
+                  $('#example').DataTable( {
+                    dom: 'Bfrtip', // Define where the buttons should appear
+                    buttons: [
+                      'copy', 'csv', 'excel', 'pdf', 'print'
+                    ],
+                    "scrollX": true,
+
+                    language: {
+                      url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
+                    }
+                  } );
+                });
                 
+
+$(document).on('click', '.edit-button', function(event) {
+  event.preventDefault();
+  var id = $(this).data('id');
+  $.ajax({
+    url: 'editar.php',
+    type: 'POST',
+    data: { id: id },
+    success: function(response) {
+      // Aquí puedes manejar la respuesta del servidor
+    }
+  });
+});
 
                 // Obtener todos los botones de editar por su clase
                 var editButtons = document.getElementsByClassName("editar");
@@ -165,38 +211,32 @@
                         window.location.href = "editar_alumno.php?id=" + id;
                     });
                 }
-                // Obtener todos los botones de eliminar por su clase
-                var deleteButtons = document.getElementsByClassName("eliminar");
-
-                // Agregar un evento de clic a cada botón de eliminar
-                for (var i = 0; i < deleteButtons.length; i++) {
-                    deleteButtons[i].addEventListener("click", function() {
-                        var id = this.parentNode.parentNode.firstChild.textContent;
-                        var confirmacion = confirm("¿Estás seguro de que quieres eliminar el alumno con id " + id + "?");
-                        if (confirmacion) {
-                            // Make an AJAX request to the server
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("GET", "eliminar_alumno.php?id=" + id, true);
-                            xhr.onreadystatechange = function() {
-                                if (this.readyState == 4 && this.status == 200) {
-                                    // Update the UI to reflect the deletion
-                                    var notification = document.getElementById("notification");
-                                    notification.textContent = this.responseText;
-                                    notification.style.display = "block";
-                                    setTimeout(function() {
-                                        notification.style.display = "none";
-                                        location.reload(); // Reload the page
-                                    }, 2000);
-                                }
-                            };
-                            xhr.send();
-                        }
+                $(document).on('click', '.eliminar', function() {
+                  var row = $(this).closest('tr');
+                  var id = $(this).data('id'); // Obtener el ID del alumno del atributo de datos
+                  var confirmacion = confirm("¿Estás seguro de que quieres eliminar el alumno con id " + id + "?");
+                  if (confirmacion) {
+                    $.ajax({
+                      url: "eliminar_alumno.php",
+                      type: "GET",
+                      data: { id: id },
+                      success: function(response) {
+                        var notification = $("#notification");
+                        notification.text(response);
+                        notification.show();
+                        setTimeout(function() {
+                          notification.hide();
+                          row.remove(); // Remove the row from the table
+                        }, 2000);
+                      }
                     });
-                }
+                  }
+                });
             </script>
         </form>
     </main>
 <div id="notification" style="display: none; position: fixed; bottom: 0; right: 0; background-color: #4CAF50; color: white; padding: 15px;">
+
 </div>
 </body>
 </html>

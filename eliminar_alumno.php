@@ -1,14 +1,21 @@
 <?php
+// Conectar a la base de datos
+$mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
+
+if ($mysqli->connect_error) {
+    die('Error de Conexión (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error);
+}
+
+// Obtener el ID del alumno de la URL
 $id = $_GET['id'];
-$conexion = mysqli_connect('localhost', 'root', 'admin', 'registro');
-if (!$conexion) {
-    die('Error de conexión: ' . mysqli_connect_error());
-}
-$sql = "DELETE FROM alumno WHERE idAlumno = $id";
-if (mysqli_query($conexion, $sql)) {
-    echo "Registro eliminado con éxito";
+
+// Ejecutar la consulta SQL para eliminar el alumno
+if ($mysqli->query("DELETE FROM alumno WHERE idAlumno = $id") === TRUE) {
+    echo "Alumno eliminado con éxito";
 } else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conexion);
+    echo "Error al eliminar alumno: " . $mysqli->error;
 }
-mysqli_close($conexion);
+
+// Cerrar la conexión a la base de datos
+$mysqli->close();
 ?>
