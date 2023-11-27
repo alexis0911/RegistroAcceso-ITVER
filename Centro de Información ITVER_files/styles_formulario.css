@@ -68,17 +68,6 @@ button[type="submit"] {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-new-button[type="submit"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #1B396A;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
 
 button[type="submit"]:hover {
     background-color: #807E82;
@@ -109,4 +98,48 @@ td input[type="text"] {
 /* Clase para elementos ocultos */
 .hidden {
     display: none;
+}
+#save-button {
+    color: white;
+    background-color: #1B396A;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.card:hover {
+    box-shadow: 8px 8px 8px blue;
+    transform: scale(1.2);
+}
+.one-time.slick-initialized {
+    visibility: visible;
+}
+.titulo {
+    background-color: #1B396A;
+    margin: 0%;
+    text-align: center;
+}
+.formulario {
+    color: #777;
+    background-color: #1B396A;
+    text-align: center;
+    padding: 50px 80px;
+    text-align: justify;
+}
+#back-button {
+    float: left;
+    color: white;
+    background-color: #1B396A;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    right: 20px;
+    border-radius: 10px;
+}
+/* Agregar un estilo para los campos de entrada */
+.campo {
+    width: 80%;
+    margin: 1px;
 }

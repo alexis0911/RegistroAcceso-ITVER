@@ -5,14 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Gestión de alumnos</title>
     <link rel="icon" href="https://ci.veracruz.tecnm.mx/img/favicon/tecnm.ico">
-    <link rel="stylesheet" href="./Centro de Información ITVER_files/bootstrap.min.css">
-    <link rel="stylesheet" href="./Centro de Información ITVER_files/estilos.css">
-    <link rel="stylesheet" href="./Centro de Información ITVER_files/fa-svg-with-js.css">
-    <link rel="stylesheet" href="./Centro de Información ITVER_files/iconos.css">
-    <link rel="stylesheet" href="./Centro de Información ITVER_files/estilo-compresion.min.css">
-    <link rel="stylesheet" href="./Centro de Información ITVER_files/jssorStyle.css">
-    <link href="./Centro de Información ITVER_files/slick-theme.css" rel="stylesheet">
-    <link href="./Centro de Información ITVER_files/slick.css" rel="stylesheet">
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
     <style>
         .card:hover {
             box-shadow: 8px 8px 8px blue;
@@ -35,6 +42,7 @@
             text-align: justify;
         }
         #back-button {
+            float: left;
             color: white;
             background-color: #1B396A;
             border: none;
@@ -59,6 +67,26 @@
         .eliminar {
             background-color: red;
         }
+        /* Agregar un estilo para el botón de nuevo */
+        #new-button {
+            float: right; /* Alinear el botón a la derecha */
+            color: white;
+            background-color: #1B396A;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            right: 20px;
+            border-radius: 10px;
+        }
+        
+        .select,
+        #locale {
+          width: 100%;
+        }
+        .like {
+          margin-right: 10px;
+        }
     </style>
     <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
 </head>
@@ -71,66 +99,104 @@
     </header>
     <!-- FORMULARIO -->
     <main class="formulario">
-        <form id="myForm" action="https://ci.veracruz.tecnm.mx/gestion_alumnos.php" method="post" onsubmit="return validateForm()">
-            <!-- Tabla de datos -->
-            <a href="#" id="back-button">Regresar</a>
-            <?php
-            // Conectar a la base de datos registro usando el usuario root y la contraseña admin
-            $conexion = mysqli_connect("localhost", "root", "admin", "registro");
-            // Verificar si la conexión fue exitosa
-            if ($conexion) {
-                // Crear una consulta SQL para obtener todos los datos de la tabla alumno
-                $consulta = "SELECT * FROM alumno";
-                // Ejecutar la consulta y obtener el resultado
-                $resultado = mysqli_query($conexion, $consulta);
-                // Verificar si el resultado tiene filas
-                if (mysqli_num_rows($resultado) > 0) {
-                    // Crear una tabla HTML para mostrar los datos
-                    echo "<table style='margin: 1;'>";
-                    echo "<thead>";
-                    echo "<tr>";
-                    echo "<th>idAlumno</th>";
-                    echo "<th>Número de control</th>";
-                    echo "<th>RFID</th>";
-                    echo "<th>Nombre</th>";
-                    echo "<th>Carrera</th>";
-                    echo "<th>Semestre</th>";
-                    echo "<th>Sexo</th>";
-                    echo "<th>Acciones</th>";
-                    echo "</tr>";
-                    echo "</thead>";
-                    echo "<tbody>";
-                    // Recorrer cada fila del resultado
-                    while ($fila = mysqli_fetch_assoc($resultado)) {
-                        // Mostrar los datos de la fila en una columna de la tabla HTML
-                        echo "<tr>";
-                        echo "<td>" . $fila["idAlumno"] . "</td>";
-                        echo "<td>" . $fila["nControl"] . "</td>";
-                        echo "<td>" . $fila["rfid"] . "</td>";
-                        echo "<td>" . $fila["nombre"] . "</td>";
-                        echo "<td>" . $fila["carrera"] . "</td>";
-                        echo "<td>" . $fila["semestre"] . "</td>";
-                        echo "<td>" . $fila["sexo"] . "</td>";
-                        echo "<td>";
-                        echo "<button class='boton editar'>Editar</button>";
-                        echo "<button class='boton eliminar'>Eliminar</button>";
-                        echo "</td>";
-                        echo "</tr>";
-                    }
-                    echo "</tbody>";
-                    echo "</table>";
-                } else {
-                    // Si el resultado no tiene filas, mostrar un mensaje de que no hay datos
-                    echo "<p>No hay datos en la tabla alumno.</p>";
+        <form id="myForm"  method="post" onsubmit="return validateForm()">
+            <a href="Menu.html" id="back-button">Regresar</a>
+            <a href="Registrar_Alumno.php" id="new-button" class="boton">Nuevo</a>
+
+
+
+            <table id="example" class="display nowrap" style="width:100%">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011-04-25</td>
+                <td>$320,800</td>
+            </tr>
+            <tr>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>2011-07-25</td>
+                <td>$170,750</td>
+            </tr>
+            <tr>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>2009-01-12</td>
+                <td>$86,000</td>
+        </tfoot>
+    </table>
+
+            <script>
+                $(document).ready(function() {
+                    $('#example').DataTable( {
+                        dom: 'Bfrtip', // Define where the buttons should appear
+                        buttons: [
+                            'copy', 'csv', 'excel', 'pdf', 'print'
+                        ]
+                        ,"scrollX": true
+                    } );
+                } );
+                
+
+                // Obtener todos los botones de editar por su clase
+                var editButtons = document.getElementsByClassName("editar");
+
+                // Agregar un evento de clic a cada botón de editar
+                for (var i = 0; i < editButtons.length; i++) {
+                    editButtons[i].addEventListener("click", function() {
+                        var id = this.parentNode.parentNode.firstChild.textContent;
+                        window.location.href = "editar_alumno.php?id=" + id;
+                    });
                 }
-                // Cerrar la conexión
-                mysqli_close($conexion);
-            } else {
-                // Si la conexión falló, mostrar un mensaje de error
-                echo "<p>Hubo un error al conectar a la base de datos.</p>";
-            }
-            ?>
+                // Obtener todos los botones de eliminar por su clase
+                var deleteButtons = document.getElementsByClassName("eliminar");
+
+                // Agregar un evento de clic a cada botón de eliminar
+                for (var i = 0; i < deleteButtons.length; i++) {
+                    deleteButtons[i].addEventListener("click", function() {
+                        var id = this.parentNode.parentNode.firstChild.textContent;
+                        var confirmacion = confirm("¿Estás seguro de que quieres eliminar el alumno con id " + id + "?");
+                        if (confirmacion) {
+                            // Make an AJAX request to the server
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("GET", "eliminar_alumno.php?id=" + id, true);
+                            xhr.onreadystatechange = function() {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    // Update the UI to reflect the deletion
+                                    var notification = document.getElementById("notification");
+                                    notification.textContent = this.responseText;
+                                    notification.style.display = "block";
+                                    setTimeout(function() {
+                                        notification.style.display = "none";
+                                        location.reload(); // Reload the page
+                                    }, 2000);
+                                }
+                            };
+                            xhr.send();
+                        }
+                    });
+                }
+            </script>
         </form>
     </main>
+<div id="notification" style="display: none; position: fixed; bottom: 0; right: 0; background-color: #4CAF50; color: white; padding: 15px;">
+</div>
 </body>
 </html>
