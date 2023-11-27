@@ -44,7 +44,45 @@
             right: 20px;
             border-radius: 10px;
         }
-        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+
+            
+            flex-direction: column; /* Ordenar los recuadros en columnas */
+            max-height: 360px;
+            max-width: none;
+            overflow: auto; /* Ocultar los recuadros que sobrepasen el límite */
+        }
+
+        li {
+            width: 300px; /* Cambiar el ancho a 300px */
+            height: 100px;
+            margin: 10px;
+            background-color: #1B396A;
+            border-radius: 10px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            
+            text-align: center; 
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
     </style>
     <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
 </head>
@@ -52,46 +90,22 @@
     <!-- Slider -->
     <header>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
-        <h2 class="titulo"><b>Solicitud de Material Bibliográfico</b></h2>
+        <h2 class="titulo"><b>Menú Principal</b></h2>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
     </header>
-    <!-- FORMULARIO -->
+    <!-- MENÚ -->
     <main class="formulario">
-        <form id="myForm" action="https://ci.veracruz.tecnm.mx/solicitud_libros.php" method="post" onsubmit="return validateForm()">
-            <!-- Tabla de datos -->
-            <a href="#" id="back-button">Regresar</a>
-            <table style="margin: 1;">
-                <thead>
-                    <tr>
-                        <th>N.</th>
-                        <th>N.Control</th>
-                        <th>Aula</th>
-                        <th>Dia</th>
-                        <th>Hora de entrada</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Aquí puedes agregar filas con datos -->
-                    <tr>
-                        <td>Valor1</td>
-                        <td>Valor2</td>
-                        <td>Valor3</td>
-                        <td>Valor4</td>
-                        <td>Valor5</td>
-                    </tr>
-                    <!-- Puedes agregar más filas con datos aquí -->
-                </tbody>
-            </table>
-            <script>
-                // Obtener el botón por su id
-                var backButton = document.getElementById("back-button");
-                // Agregar un evento de clic al botón
-                backButton.addEventListener("click", function() {
-                    // Regresar a la página anterior
-                    window.history.back();
-                });
-            </script>
-        </form>
+        <!-- Lista de opciones -->
+        <ul>
+            <!-- Cada opción es un enlace a otra página -->
+            <li><a href="Registrar.html">Registrar</a></li>
+            <li><a href="TablasUso.php">Hitorial de Uso</a></li>
+            <li><a href="gestion_estudiantes.php">Gestión de estudiantes</a></li>
+            <li><a href="gestion_Edificio.php">Gestión de edificio</a></li>
+            <li><a href="gestion_aulas.php">Gestión de aulas</a></li>
+            <li><a href="generacion_reportes.html">Generación de reportes</a></li>
+        </ul>
+
     </main>
 </body>
 </html>

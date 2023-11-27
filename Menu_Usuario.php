@@ -1,38 +1,9 @@
-<?php
-session_start();
-
-// Verificar si el usuario ya ha iniciado sesión
-if (isset($_SESSION['usuario'])) {
-    // Redirigir al panel de control o a la página de inicio de sesión exitosa
-    header("Location: panel_control.php");
-    exit;
-}
-
-// Verificar si se ha enviado el formulario de inicio de sesión
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validar los datos del formulario de inicio de sesión
-    $usuario = $_POST['usuario'];
-    $contrasena = $_POST['contrasena'];
-
-    // Verificar si las credenciales son válidas (aquí debes implementar tu lógica de autenticación)
-    if ($usuario === 'admin' && $contrasena === 'admin123') {
-        // Iniciar sesión y redirigir al panel de control o a la página de inicio de sesión exitosa
-        $_SESSION['usuario'] = $usuario;
-        header("Location: panel_control.php");
-        exit;
-    } else {
-        // Mostrar un mensaje de error si las credenciales son incorrectas
-        $error = "Credenciales inválidas. Por favor, inténtalo de nuevo.";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Menú de inicio de sesión</title>
+    <title>Centro de Información ITVER</title>
     <link rel="icon" href="https://ci.veracruz.tecnm.mx/img/favicon/tecnm.ico">
     <link rel="stylesheet" href="./Centro de Información ITVER_files/bootstrap.min.css">
     <link rel="stylesheet" href="./Centro de Información ITVER_files/estilos.css">
@@ -42,9 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="./Centro de Información ITVER_files/jssorStyle.css">
     <link href="./Centro de Información ITVER_files/slick-theme.css" rel="stylesheet">
     <link href="./Centro de Información ITVER_files/slick.css" rel="stylesheet">
-
-    <!-- Agrega aquí los estilos adicionales que necesites -->
-
     <style>
         .card:hover {
             box-shadow: 8px 8px 8px blue;
@@ -76,6 +44,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             right: 20px;
             border-radius: 10px;
         }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+
+            
+            flex-direction: column; /* Ordenar los recuadros en columnas */
+            max-height: 360px;
+            max-width: none;
+            overflow: auto; /* Ocultar los recuadros que sobrepasen el límite */
+        }
+
+        li {
+            width: 300px; /* Cambiar el ancho a 300px */
+            height: 100px;
+            margin: 10px;
+            background-color: #1B396A;
+            border-radius: 10px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            
+            text-align: center; 
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
     </style>
     <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
 </head>
@@ -83,24 +90,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Slider -->
     <header>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
-        <h2 class="titulo"><b>Menú de inicio de sesión</b></h2>
+        <h2 class="titulo"><b>Menú Principal</b></h2>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
     </header>
+    <!-- MENÚ -->
     <main class="formulario">
-        <form method="POST" action="">
-            <div class="form-group">
-                <label for="usuario">Usuario:</label>
-                <input type="text" name="usuario" id="usuario" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" name="contrasena" id="contrasena" class="form-control" required>
-            </div>
-            <?php if (isset($error)): ?>
-                <div class="alert alert-danger"><?php echo $error; ?></div>
-            <?php endif; ?>
-            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-        </form>
+        <!-- Lista de opciones -->
+        <ul>
+            <!-- Cada opción es un enlace a otra página -->
+            <li><a href="Registrar.html">Registrar</a></li>
+        </ul>
+
     </main>
 </body>
 </html>
