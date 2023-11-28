@@ -2,15 +2,11 @@
 // Conectar a la base de datos
 $mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
 
-// Obtener todas las ubicaciones
-$result = $mysqli->query("SELECT * FROM ubicacion");
-$ubicaciones = $result->fetch_all(MYSQLI_ASSOC);
-
-// Obtener el ID del aula de la URL
-$id = $_GET['id'];
+// Obtener el ID de la ubicación de la URL
+$idUbicacion = $_GET['id'];
 
 // Preparar la consulta SQL
-$stmt = $mysqli->prepare("SELECT * FROM salon WHERE idSalon = ?");
+$stmt = $mysqli->prepare("SELECT * FROM ubicacion WHERE idUbicacion = ?");
 
 // Verificar si la consulta se preparó correctamente
 if ($stmt === false) {
@@ -18,37 +14,32 @@ if ($stmt === false) {
 }
 
 // Vincular los parámetros a la consulta SQL
-$stmt->bind_param("i", $id);
+$stmt->bind_param("i", $idUbicacion);
 
 // Ejecutar la consulta SQL
 $stmt->execute();
 
 // Obtener los resultados de la consulta
 $result = $stmt->get_result();
-$aula = $result->fetch_assoc();
+$ubicacion = $result->fetch_assoc();
 
 // Verificar si la solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos de la solicitud POST
-    $identificador = $_POST['identificador'];
-    $piso = $_POST['piso'];
-    $categoria = $_POST['categoria'];
-    $capacidadUso = $_POST['capacidadUso'];
-    $climas = isset($_POST['climas']) ? 1 : 0;
-    $horaApertura = $_POST['horaApertura'];
-    $horaCierre = $_POST['horaCierre'];
-    $Ubicacion_idUbicacion = $_POST['Ubicacion_idUbicacion'];
+    $nombreUbicacion = $_POST['nombreUbicacion'];
+    $pisos = $_POST['pisos'];
+    $descripcion = $_POST['descripcion'];
 
-    // Preparar la consulta SQL para actualizar el aula
-    $stmt = $mysqli->prepare("UPDATE salon SET identificador = ?, piso = ?, categoria = ?, capacidadUso = ?, climas = ?, horaApertura = ?, horaCierre = ?, Ubicacion_idUbicacion = ? WHERE idSalon = ?");
+    // Preparar la consulta SQL para actualizar la ubicación
+    $stmt = $mysqli->prepare("UPDATE ubicacion SET nombreUbicacion = ?, pisos = ?, descripcion = ? WHERE idUbicacion = ?");
 
     // Vincular los datos a la consulta SQL
-    $stmt->bind_param("siisissii", $identificador, $piso, $categoria, $capacidadUso, $climas, $horaApertura, $horaCierre, $Ubicacion_idUbicacion, $id);
+    $stmt->bind_param("sisi", $nombreUbicacion, $pisos, $descripcion, $idUbicacion);
 
     // Ejecutar la consulta SQL
     if ($stmt->execute()) {
-        // Si la consulta fue exitosa, redirigir al usuario a gestion_aulas.php
-        header("Location: gestion_aulas.php");
+        // Si la consulta fue exitosa, redirigir al usuario a gestion_ubicaciones.php
+        header("Location: gestion_ubicaciones.php");
     } else {
         // Si la consulta falló, mostrar un mensaje de error
         echo "Error: " . $stmt->error;
@@ -123,52 +114,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="formulario">
         <form method="POST">
             <div class="form-group">
-                <a href="gestion_aulas.php" id="back-button">Regresar</a>
+                <a href="gestion_ubicaciones.php" id="back-button">Regresar</a>
             </div>
             <div class="form-group">
-                <label for="identificador">Identificador:</label>
-                <input type="text" id="identificador" name="identificador" value="<?= $aula['identificador'] ?>" required>
+                <label for="nombreUbicacion">Nombre de Ubicación:</label>
+                <input type="text" id="nombreUbicacion" name="nombreUbicacion" value="<?= $ubicacion['nombreUbicacion'] ?>" required>
             </div>
+
             <div class="form-group">
-                <label for="Ubicacion_idUbicacion">Ubicación:</label>
-                <select id="Ubicacion_idUbicacion" name="Ubicacion_idUbicacion" required onchange="updatePisos()">
-                    <?php foreach ($ubicaciones as $ubicacion): ?>
-                        <option value="<?= $ubicacion['idUbicacion'] ?>" data-pisos="<?= $ubicacion['pisos'] ?>" <?= $ubicacion['idUbicacion'] == $aula['Ubicacion_idUbicacion'] ? 'selected' : '' ?>><?= $ubicacion['nombreUbicacion'] ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="pisos">Pisos:</label>
+                <input type="number" id="pisos" name="pisos" value="<?= $ubicacion['pisos'] ?>" min="1">
             </div>
+
             <div class="form-group">
-                <label for="piso">Piso:</label>
-                <select id="piso" name="piso">
-                    <!-- Aquí deberías generar las opciones de piso basándote en la ubicación seleccionada y seleccionar el piso actual del aula -->
-                </select>
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" name="descripcion" value="<?= $ubicacion['descripcion'] ?>">
             </div>
-            <div class="form-group">
-                <label for="categoria">Categoría:</label>
-                <select id="categoria" name="categoria">
-                    <option value="1">Categoría 1</option>
-                    <option value="2">Categoría 2</option>
-                    <option value="3">Categoría 3</option>
-                    <!-- Agrega más opciones según sea necesario -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="capacidadUso">Capacidad de Uso:</label>
-                <input type="number" id="capacidadUso" name="capacidadUso" min="0" value="<?= $aula['capacidadUso'] ?>">
-            </div>
-            <div class="form-group">
-                <input type="checkbox" id="climas" name="climas" class="styled-checkbox" <?= $aula['climas'] ? 'checked' : '' ?>>
-                <label for="climas">Climas</label>
-            </div>
-            <div class="form-group">
-                <label for="horaApertura">Hora de Apertura:</label>
-                <input type="time" id="horaApertura" name="horaApertura" value="<?= $aula['horaApertura'] ?>">
-            </div>
-            <div class="form-group">
-                <label for="horaCierre">Hora de Cierre:</label>
-                <input type="time" id="horaCierre" name="horaCierre" value="<?= $aula['horaCierre'] ?>">
-                </div>
-                <input type="submit" value="Actualizar Salón">
+
+            <input type="hidden" name="idUbicacion" value="<?= $ubicacion['idUbicacion'] ?>">
+            <input type="submit" value="Actualizar Ubicación">
         </form>
         <script>
             function updatePisos() {
@@ -177,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 var pisos = ubicacion.getAttribute('data-pisos');
 
                 // Obtener el menú desplegable de pisos
-                var selectPisos = document.getElementById('piso');
+                var selectPisos = document.getElementById('pisos');
 
                 // Limpiar las opciones existentes
                 selectPisos.innerHTML = '';
@@ -188,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     option.value = i;
                     option.text = 'Piso ' + i;
                     // Si el piso actual del aula es igual a i, seleccionar esta opción
-                    if (i == <?= $aula['piso'] ?>) {
+                    if (i == <?= $ubicacion['pisos'] ?>) {
                         option.selected = true;
                     }
                     selectPisos.appendChild(option);

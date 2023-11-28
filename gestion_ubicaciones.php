@@ -251,13 +251,14 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
         });
 
         // Obtener todos los botones de editar por su clase
-        var editButtons = document.getElementsByClassName("editar");
+        var editButtons = document.getElementsByClassName("edit-button");
 
         // Agregar un evento de clic a cada botón de editar
         for (var i = 0; i < editButtons.length; i++) {
-            editButtons[i].addEventListener("click", function () {
-                var id = this.parentNode.parentNode.firstChild.textContent;
-                window.location.href = "editar_alumno.php?id=" + id;
+            editButtons[i].addEventListener("click", function (event) {
+                event.preventDefault();
+                var id = this.dataset.id; // Use dataset to get data attributes
+                window.location.href = "editar_ubicacion.php?id=" + id;
             });
         }
 
