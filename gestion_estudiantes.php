@@ -165,78 +165,60 @@
                   </td>
                   </tr>';
             }
-
             echo '</tbody></table>';
-
             // Cerrar la conexión a la base de datos
             $mysqli->close();
             ?>
-
             <script>
-                $(document).ready(function() {
-                  $('#example').DataTable( {
-                    dom: 'Bfrtip', // Define where the buttons should appear
-                    buttons: [
-                      'copy', 'csv', 'excel', 'pdf', 'print'
-                    ],
-                    "scrollX": true,
-
-                    language: {
-                      url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
-                    }
-                  } );
-                });
-                
-
-$(document).on('click', '.edit-button', function(event) {
-  event.preventDefault();
-  var id = $(this).data('id');
-  $.ajax({
-    url: 'editar.php',
-    type: 'POST',
-    data: { id: id },
-    success: function(response) {
-      // Aquí puedes manejar la respuesta del servidor
-    }
-  });
-});
-
-                // Obtener todos los botones de editar por su clase
-                var editButtons = document.getElementsByClassName("editar");
-
-                // Agregar un evento de clic a cada botón de editar
-                for (var i = 0; i < editButtons.length; i++) {
-                    editButtons[i].addEventListener("click", function() {
-                        var id = this.parentNode.parentNode.firstChild.textContent;
-                        window.location.href = "editar_alumno.php?id=" + id;
-                    });
-                }
-                $(document).on('click', '.eliminar', function() {
-                  var row = $(this).closest('tr');
-                  var id = $(this).data('id'); // Obtener el ID del alumno del atributo de datos
-                  var confirmacion = confirm("¿Estás seguro de que quieres eliminar el alumno con id " + id + "?");
-                  if (confirmacion) {
-                    $.ajax({
-                      url: "eliminar_alumno.php",
-                      type: "GET",
-                      data: { id: id },
-                      success: function(response) {
-                        var notification = $("#notification");
-                        notification.text(response);
-                        notification.show();
-                        setTimeout(function() {
-                          notification.hide();
-                          row.remove(); // Remove the row from the table
-                        }, 2000);
-                      }
-                    });
+              $(document).ready(function() {
+                $('#example').DataTable( {
+                  dom: 'Bfrtip', // Define where the buttons should appear
+                  buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                  ],
+                  "scrollX": true,
+                  language: {
+                    url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
                   }
+                } );
+              });
+                  // Agregar un evento de clic a cada botón de editar
+                $(document).on('click', '.edit-button', function(event) {
+                  event.preventDefault();
+                  var id = $(this).data('id'); // Use jQuery data function to get data attributes
+                  window.location.href = "editar_alumno.php?id=" + id;
                 });
+                // Agregar un evento de clic a cada botón de editar
+                $(document).on('click', '.edit-button', function(event) {
+                  event.preventDefault();
+                  var id = $(this).data('id'); // Use jQuery data function to get data attributes
+                  window.location.href = "editar_alumno.php?id=" + id;
+                });
+              $(document).on('click', '.eliminar', function() {
+                var row = $(this).closest('tr');
+                var id = $(this).data('id'); // Obtener el ID del alumno del atributo de datos
+                var confirmacion = confirm("¿Estás seguro de que quieres eliminar el alumno con id " + id + "?");
+                if (confirmacion) {
+                  $.ajax({
+                    url: "eliminar_alumno.php",
+                    type: "GET",
+                    data: { id: id },
+                    success: function(response) {
+                      var notification = $("#notification");
+                      notification.text(response);
+                      notification.show();
+                      setTimeout(function() {
+                        notification.hide();
+                        row.remove(); // Remove the row from the table
+                      }, 2000);
+                    }
+                  });
+                }
+              });
             </script>
         </form>
     </main>
 <div id="notification" style="display: none; position: fixed; bottom: 0; right: 0; background-color: #4CAF50; color: white; padding: 15px;">
-
 </div>
 </body>
 </html>
