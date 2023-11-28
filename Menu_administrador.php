@@ -101,9 +101,9 @@
             <li><a href="Registrar.html">Registrar</a></li>
             <li><a href="TablasUso.php">Hitorial de Uso</a></li>
             <li><a href="gestion_estudiantes.php">Gestión de estudiantes</a></li>
-            <li><a href="gestion_Edificio.php">Gestión de edificio</a></li>
+            <li><a href="gestion_ubicaciones.php">Gestión de ubicaciones</a></li>
             <li><a href="gestion_aulas.php">Gestión de aulas</a></li>
-            <li><a href="generacion_reportes.html">Generación de reportes</a></li>
+            <!-- <li><a href="generacion_reportes.html">Generación de reportes</a></li>-->
         </ul>
 
     </main>
