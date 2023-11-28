@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <header>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
-        <h2 class="titulo"><b>Gestión de alumnos</b></h2>
+        <h2 class="titulo"><b>Nueba Ubicacion</b></h2>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
     </header>
     <main class="formulario">

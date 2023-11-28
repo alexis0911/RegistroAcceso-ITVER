@@ -170,7 +170,7 @@
     <main class="formulario">
     <form id="myForm"  method="post" onsubmit="return validateForm()">
     <a href="Menu_administrador.php" id="back-button">Regresar</a>
-    <a href="Registrar_Alumno.php" id="new-button" class="boton">Nuevo</a>
+    <a href="nueba_aula.php" id="new-button" class="boton">Nuevo</a>
 
     <?php
     // Conectar a la base de datos
