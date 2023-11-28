@@ -16,6 +16,7 @@ $result = $mysqli->query("
 ");
 $uso = $result->fetch_assoc();
 
+
 // Procesar el formulario cuando se envía
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los nuevos valores del formulario
