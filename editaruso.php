@@ -15,7 +15,7 @@ $result = $mysqli->query("
     WHERE uso.idUso = $idUso
 ");
 $uso = $result->fetch_assoc();
-
+asdd
 // Procesar el formulario cuando se envía
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los nuevos valores del formulario
