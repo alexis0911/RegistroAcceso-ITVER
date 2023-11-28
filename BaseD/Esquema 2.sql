@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `registro`.`salon` (
   `horaCierre` TIME NULL DEFAULT NULL,
   `Ubicacion_idUbicacion` INT NOT NULL,
   PRIMARY KEY (`idSalon`),
-  INDEX `fk_Salon_Ubicacion1_idx` (`Ubicacion_idUbicacion` ASC) VISIBLE,
+  INDEX `fk_Salon_Ubicacion1_idx` (`Ubicacion_idUbicacion` ASC) ,
   CONSTRAINT `fk_Salon_Ubicacion1`
     FOREIGN KEY (`Ubicacion_idUbicacion`)
     REFERENCES `registro`.`ubicacion` (`idUbicacion`)
@@ -114,9 +114,9 @@ CREATE TABLE IF NOT EXISTS `registro`.`uso` (
   `dia` DATE NULL DEFAULT NULL,
   `horaEntrada` TIME NULL DEFAULT NULL,
   PRIMARY KEY (`idUso`),
-  INDEX `fk_Uso_Alumno_idx` (`Alumno_idAlumno` ASC) VISIBLE,
-  INDEX `fk_Uso_Salon1_idx` (`Salon_idSalon` ASC) VISIBLE,
-  INDEX `fk_uso_Usuario1_idx` (`Usuario_idUsuario` ASC) VISIBLE,
+  INDEX `fk_Uso_Alumno_idx` (`Alumno_idAlumno` ASC) ,
+  INDEX `fk_Uso_Salon1_idx` (`Salon_idSalon` ASC) ,
+  INDEX `fk_uso_Usuario1_idx` (`Usuario_idUsuario` ASC) ,
   CONSTRAINT `fk_Uso_Alumno`
     FOREIGN KEY (`Alumno_idAlumno`)
     REFERENCES `registro`.`alumno` (`idAlumno`)
