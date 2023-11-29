@@ -1,17 +1,16 @@
 <?php
 	session_start();
 	$_SESSION["ubicado"]="../../";
-    require_once($_SESSION["ubicado"]."Clases/Calumno.php");
+    require_once($_SESSION["ubicado"]."Clases/Cuso.php");
 
-    $alumno = new Calumno();
-    $alumno->nControl='1';
-    $alumno->curpPnombreer='1';
-    $alumno->rfid='1';
-    $alumno->carrera='1';
-    $alumno->semestre='1';
-    $alumno->sexo='1';
-    $alumno->selectById(11);
+    $uso = new Cuso();
 
+    $uso->Alumno_idAlumno=1;
+    $uso->Salon_idSalon=1;
+    $uso->Usuario_idUsuario=1;
+    $uso->dia=Date('Y-m-d');
+    $uso->horaEntrada=Date('H-i-s');
+    $uso->insert();
 
 
     $_SESSION["seleccion"]=isset($_GET["vista"])&&!empty($_GET["vista"])?$_GET["vista"]:'';

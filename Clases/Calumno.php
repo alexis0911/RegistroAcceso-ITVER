@@ -28,6 +28,11 @@
 
 		public function selectById($id){
 			$query = $this->queryExceute("SELECT * FROM `alumno` WHERE idAlumno = $id");
+			$this->setThis($query);
+            return $query;
+		}
+
+		private function setThis($query){
 			if($query){
 				$temp = mysqli_fetch_assoc($query);
 				$this->idAlumno			= $temp["idAlumno"];
@@ -40,5 +45,6 @@
 			}
             return $query;
 		}
+
 	}
 ?>
