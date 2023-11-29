@@ -1,4 +1,5 @@
 <?php
+require_once("Clases/Cuso.php");
 // Conectar a la base de datos
 $mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
 // Comprobar la conexión
