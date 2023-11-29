@@ -23,7 +23,7 @@
 
 		public function selectAll(){
 			$query = $this->queryExceute("SELECT * FROM `alumno`");
-            return if($query)?mysqli_fetch_assoc($query):false;
+            return $query?mysqli_fetch_assoc($query):false;
 		}
 
 		public function selectById($id){
