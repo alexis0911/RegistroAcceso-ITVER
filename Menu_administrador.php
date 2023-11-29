@@ -98,7 +98,7 @@
         <!-- Lista de opciones -->
         <ul>
             <!-- Cada opción es un enlace a otra página -->
-            <li><a href="Registrar.html">Registrar</a></li>
+            <li><a href="Registrar.php">Registrar</a></li>
             <li><a href="TablasUso.php">Hitorial de Uso</a></li>
             <li><a href="gestion_estudiantes.php">Gestión de estudiantes</a></li>
             <li><a href="gestion_ubicaciones.php">Gestión de ubicaciones</a></li>

@@ -1,11 +1,9 @@
 <?php
 // Conectar a la base de datos
 $mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
-
 // Obtener todas las ubicaciones
 $result = $mysqli->query("SELECT * FROM ubicacion");
 $ubicaciones = $result->fetch_all(MYSQLI_ASSOC);
-
 // Verificar si la solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener los datos de la solicitud POST
@@ -17,13 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $horaApertura = $_POST['horaApertura'];
     $horaCierre = $_POST['horaCierre'];
     $Ubicacion_idUbicacion = $_POST['Ubicacion_idUbicacion'];
-
     // Preparar la consulta SQL para insertar el nuevo salon
     $stmt = $mysqli->prepare("INSERT INTO salon (identificador, piso, categoria, capacidadUso, climas, horaApertura, horaCierre, Ubicacion_idUbicacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-
     // Vincular los datos a la consulta SQL
     $stmt->bind_param("siisissi", $identificador, $piso, $categoria, $capacidadUso, $climas, $horaApertura, $horaCierre, $Ubicacion_idUbicacion);
-
     // Ejecutar la consulta SQL
     if ($stmt->execute()) {
         // Si la consulta fue exitosa, redirigir al usuario a gestion_aulas.php
@@ -152,13 +147,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Obtener la ubicación seleccionada y su cantidad de pisos
                 var ubicacion = document.getElementById('Ubicacion_idUbicacion').selectedOptions[0];
                 var pisos = ubicacion.getAttribute('data-pisos')    ;
-
                 // Obtener el menú desplegable de pisos
                 var selectPisos = document.getElementById('piso');
-
                 // Limpiar las opciones existentes
                 selectPisos.innerHTML = '';
-
                 // Agregar nuevas opciones para cada piso
                 for (var i = 1; i <= pisos; i++) {
                     var option = document.createElement('option');
@@ -167,7 +159,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     selectPisos.add(option);
                 }
             }
-
             // Actualizar los pisos cuando se carga la página
             window.onload = updatePisos;
             </script>
