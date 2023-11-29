@@ -32,18 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo $numeroControl;
 
     if ($alumno) {
-        // El alumno existe, proceder a insertar el uso
-        $idUsuario = 1;
-        $stmt = $mysqli->prepare("INSERT INTO uso (Alumno_idAlumno, Salon_idSalon, Usuario_idUsuario, dia, horaEntrada) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("iiiss", intval($alumno['idAlumno']), intval($_POST['salon']), intval($idUsuario), date('Y-m-d'), date('H:i:s'));
-        echo $stmt;
-        if ($stmt->execute()) {
-            // La inserción fue exitosa, mostrar un mensaje de éxito
-            echo "Registro guardado con éxito.";
-        } else {
-            // Hubo un error al insertar el registro, mostrar un mensaje de error
-            echo "Error al guardar el registro: " . $stmt->error;
-        }
+        $uso = new Cuso();
+        $uso->Alumno_idAlumno=intval($alumno['idAlumno']);
+        $uso->Salon_idSalon=intval($_POST['salon']);
+        $uso->Usuario_idUsuario=intval($idUsuario);
+        $uso->dia=Date('Y-m-d');
+        $uso->horaEntrada=Date('H-i-s');
+        $uso->insert();
     } else {
         // El alumno no existe, mostrar un mensaje de error y emitir un sonido de error
         echo "Usuario no registrado." . $numeroControl;
