@@ -30,6 +30,11 @@
 
 		public function selectById($id){
 			$query = $this->queryExceute("SELECT * FROM `salon` WHERE idSalon = $id");
+			$this->setThis($query);
+            return $query;
+		}
+
+		private function setThis($query){
 			if($query){
 				$temp = mysqli_fetch_assoc($query);
 				$this->idSalon			        = $temp["idSalon"];
@@ -44,5 +49,6 @@
 			}
             return $query;
 		}
+
 	}
 ?>
