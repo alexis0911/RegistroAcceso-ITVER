@@ -30,16 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //mysqli_select_db($db, 'registro');
     //$alumno = mysqli_query($db, "SELECT * FROM alumno WHERE nControl = $numeroControl OR rfid = $numeroControl");
 
-    echo $numeroControl;
-
     if ($alumno) {
         $uso = new Cuso();
         $uso->Alumno_idAlumno=intval($alumno['idAlumno']);
         $uso->Salon_idSalon=intval($_POST['salon']);
-        $uso->Usuario_idUsuario=intval($idUsuario);
+        $uso->Usuario_idUsuario=intval(1);
         $uso->dia=Date('Y-m-d');
         $uso->horaEntrada=Date('H-i-s');
         $uso->insert();
+        echo "qwe." . $numeroControl;
     } else {
         // El alumno no existe, mostrar un mensaje de error y emitir un sonido de error
         echo "Usuario no registrado." . $numeroControl;
