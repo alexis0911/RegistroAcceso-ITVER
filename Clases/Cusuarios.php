@@ -28,6 +28,12 @@
 			$this->setThis($query);
             return $query;
 		}
+		
+		public function selectByLogin($user, $pass){
+			$query = $this->queryExceute("SELECT * FROM `usuarios` WHERE nombreUsuario = '$user' AND password = '$pass'");
+			$this->setThis($query);
+            return $query;
+		}
 
 		private function setThis($query){
 			if($query){

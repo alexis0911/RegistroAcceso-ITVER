@@ -1,24 +1,30 @@
 <?php
 session_start();
+require_once("Clases/Cusuarios.php");
 
 // Verificar si el usuario ya ha iniciado sesión
 if (isset($_SESSION['usuario'])) {
     // Redirigir al panel de control o a la página de inicio de sesión exitosa
-    header("Location: panel_control.php");
+    if($_SESSION['usuario']==1){
+        header("Location: Menu_administrador.php");
+    }else{
+        header("Location: Menu_Usuario.php");
+    }
     exit;
 }
 
 // Verificar si se ha enviado el formulario de inicio de sesión
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validar los datos del formulario de inicio de sesión
-    $usuario = $_POST['usuario'];
-    $contrasena = $_POST['contrasena'];
-
+    $usuario = new Cusuarios();
     // Verificar si las credenciales son válidas (aquí debes implementar tu lógica de autenticación)
-    if ($usuario === 'admin' && $contrasena === 'admin123') {
+    if ($usuario->selectByLogin($_POST['usuario'],$_POST['contrasena'])) {
         // Iniciar sesión y redirigir al panel de control o a la página de inicio de sesión exitosa
-        $_SESSION['usuario'] = $usuario;
-        header("Location: panel_control.php");
+        $_SESSION['usuario'] = $usuario->idUsuario;
+        if($usuario->idUsuario==1){
+            header("Location: Menu_administrador.php");
+        }else{
+            header("Location: Menu_Usuario.php");
+        }
         exit;
     } else {
         // Mostrar un mensaje de error si las credenciales son incorrectas
