@@ -45,7 +45,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-group label {
             margin-bottom: 0.5em;
         }
-        
+        #back-button {
+            float: left;
+            color: white;
+            background-color: #1B396A;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            right: 20px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>

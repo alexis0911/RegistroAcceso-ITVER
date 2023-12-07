@@ -113,7 +113,7 @@
     <!-- FORMULARIO -->
     <main class="formulario">
         <form id="myForm"  method="post" onsubmit="return validateForm()">
-            <a href="Menu_administrador.php" id="back-button">Regresar</a>
+            <a href="Menu_administrador.php" id="back-button" class="boton">Regresar</a>
             <a href="Registrar_Alumno.php" id="new-button" class="boton">Nuevo</a>
 
             <?php

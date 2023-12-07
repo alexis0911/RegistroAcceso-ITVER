@@ -87,17 +87,14 @@
             margin: auto;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 10px;
             border: 1px solid black;
         }
-
         th {
             background-color: #1B396A;
             color: black;
         }
-
         /* Estilos de los botones */
         .boton-agregar, .boton-editar, .boton-eliminar {
             color: white;
@@ -106,11 +103,9 @@
             padding: 5px 10px;
             cursor: pointer;
         }
-
         .boton-agregar {
             margin-bottom: 20px; 
         }
-
         /* Estilos del campo de búsqueda */
         .busqueda {
             margin-top: 20px; 
@@ -129,7 +124,6 @@
             background-color: white; /* para que el fondo sea blanco */
             border-radius: 10px; /* para que los bordes sean redondeados */
         }
-
         th, td {
             padding: 10px;
             border: 1px solid black;
@@ -147,7 +141,17 @@
             right: 20px;
             border-radius: 10px;
         }
-        
+        #back-button {
+            float: left;
+            color: white;
+            background-color: #1B396A;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            right: 20px;
+            border-radius: 10px;
+        }
         .select,
         #locale {
           width: 100%;
@@ -169,7 +173,7 @@
     <!-- Contenido principal -->
     <main class="formulario">
     <form id="myForm"  method="post" onsubmit="return validateForm()">
-    <a href="Menu_administrador.php" id="back-button">Regresar</a>
+    <a href="Menu_administrador.php" id="back-button" class="boton">Regresar</a>
     <a href="nueba_aula.php" id="new-button" class="boton">Nuevo</a>
 
     <?php

@@ -13,12 +13,16 @@
     <link rel="stylesheet" href="./Centro de Información ITVER_files/jssorStyle.css">
     <link href="./Centro de Información ITVER_files/slick-theme.css" rel="stylesheet">
     <link href="./Centro de Información ITVER_files/slick.css" rel="stylesheet">
-    <style>
-        .card:hover {
-            box-shadow: 8px 8px 8px blue;
-            transform: scale(1.2);
-        }
-        
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+ 
+ <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+         crossorigin="anonymous"
+         referrerpolicy="no-referrer"
+     />
+     <style>        
         .one-time.slick-initialized {
             visibility: visible;
         }
@@ -28,61 +32,48 @@
             text-align: center;
         }
         .formulario {
-            color: #777;
-            background-color: #1B396A;
-            text-align: center;
-            padding: 50px 80px;
-            text-align: justify;
-        }
-        #back-button {
-            color: white;
-            background-color: #1B396A;
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            cursor: pointer;
-            right: 20px;
-            border-radius: 10px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            background-color: white;
-            border-radius: 10px;
-
-            
-            flex-direction: column; /* Ordenar los recuadros en columnas */
-            max-height: 360px;
-            max-width: none;
-            overflow: auto; /* Ocultar los recuadros que sobrepasen el límite */
+            align: center;
+            max-height: 900px;  
         }
-
         li {
-            width: 300px; /* Cambiar el ancho a 300px */
-            height: 100px;
-            margin: 10px;
+            width: 250px; /* Cambiar el ancho a 300px */
+            height: 120px;
             background-color: #1B396A;
-            border-radius: 10px;
         }
-
         a {
             color: white;
             text-decoration: none;
             font-size: 20px;
-            
-            text-align: center; 
-
             display: flex;
             justify-content: center;
-            align-items: center;
             height: 100%;
         }
-
+        .imagenes {
+            margin-top: 35px;
+        }
+        .text {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            text-align: center; 
+            display: flex;
+            justify-content: center;
+            height: 100%;
+        }
+        ul {
+            max-width: 850px;
+            margin:  auto;
+            padding: 0;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;       
+            overflow: auto; /* Ocultar los recuadros que sobrepasen el límite */
+            text-align: center;
+        }
     </style>
     <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
 </head>
@@ -90,7 +81,7 @@
     <!-- Slider -->
     <header>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
-        <h2 class="titulo"><b>Menú Principal</b></h2>
+        <h2 class="titulo"><b>Menú Principal Usuarios</b></h2>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
     </header>
     <!-- MENÚ -->
@@ -98,7 +89,7 @@
         <!-- Lista de opciones -->
         <ul>
             <!-- Cada opción es un enlace a otra página -->
-            <li><a href="Registrar.php">Registrar</a></li>
+            <a href="Registrar.php"><li class="boton" ><i class="fa-solid fa-file-pen fa-2xl imagenes" style="color: #ffffff;"></i><div clase="text">Registrar</div></li></a>
         </ul>
 
     </main>

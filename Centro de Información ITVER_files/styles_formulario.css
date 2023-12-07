@@ -126,20 +126,19 @@ td input[type="text"] {
     text-align: center;
     padding: 50px 80px;
     text-align: justify;
+    
 }
-#back-button {
-    float: left;
-    color: white;
-    background-color: #1B396A;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
-    right: 20px;
-    border-radius: 10px;
-}
+
 /* Agregar un estilo para los campos de entrada */
 .campo {
     width: 80%;
     margin: 1px;
+}
+.boton {
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    margin: 10px 8px;
+    cursor: pointer;
+    border-radius: 5px;
 }

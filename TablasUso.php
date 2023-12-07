@@ -23,13 +23,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
-        
     <style>
         .card:hover {
             box-shadow: 8px 8px 8px blue;
             transform: scale(1.2);
         }
-        
         .one-time.slick-initialized {
             visibility: visible;
         }
@@ -46,6 +44,7 @@
             text-align: justify;
         }
         #back-button {
+            float: left;
             color: white;
             background-color: #1B396A;
             border: none;
@@ -86,7 +85,7 @@
     <!-- FORMULARIO -->
     <main class="formulario">
         <form id="myForm"  method="post" onsubmit="return validateForm()">
-            <a href="Menu_administrador.php" id="back-button">Regresar</a>
+            <a class="boton" href="Menu_administrador.php" id="back-button">Regresar</a>
 
             <?php
             // Conectar a la base de datos

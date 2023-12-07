@@ -44,10 +44,23 @@ if (isset($_POST['nControl'])) {
 
     <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
 </head>
+<style>
+#back-button {
+            float: left;
+            color: white;
+            background-color: #1B396A;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            right: 20px;
+            border-radius: 10px;
+        }
+</style>
 <body>
     <header>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
-        <h2 class="titulo"><b>Gestión de alumnos</b></h2>
+        <h2 class="titulo"><b>Registrar alumno</b></h2>
         <div style="width: 100%; background-color: #1B396A; height: 2vw;"></div>
     </header>
     <main class="formulario">

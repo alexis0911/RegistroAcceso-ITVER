@@ -9,7 +9,7 @@
 		public $horaEntrada;
 		
 		public function insert(){
-            return $this->queryExceute("INSERT INTO `uso` (`idUso`, `Alumno_idAlumno`, `Salon_idSalon`, `Usuario_idUsuario`, `dia`, `horaEntrada`) VALUES ('$this->idUso', '$this->Alumno_idAlumno', '$this->Salon_idSalon', '$this->Usuario_idUsuario', '$this->dia', '$this->horaEntrada')");
+            return $this->queryExceute("INSERT INTO `uso` (`Alumno_idAlumno`, `Salon_idSalon`, `Usuario_idUsuario`, `dia`, `horaEntrada`) VALUES ($this->Alumno_idAlumno, $this->Salon_idSalon, $this->Usuario_idUsuario, '$this->dia', '$this->horaEntrada')");
 		}
 
 		public function delete(){

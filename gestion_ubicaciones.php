@@ -39,31 +39,27 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
         <!-- Custom CSS -->
         <link rel="stylesheet" href="styles.css" />
   
-
+        <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
     <style>
         /* Estilos generales */
         .card:hover {
             box-shadow: 8px 8px 8px blue;
             transform: scale(1.2);
         }
-        
         .one-time.slick-initialized {
             visibility: visible;
         }
-
         /* Estilos del encabezado */
         .titulo {
             background-color: #1B396A;
             margin: 0;
             text-align: center;
         }
-
         .barra {
             width: 100%;
             background-color: #1B396A;
             height: 2vw;
         }
-
         /* Estilos del contenido principal */
         .formulario {
             color: #777;
@@ -71,7 +67,6 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
             text-align: center;
             padding: 50px 80px;
         }
-
         #menu-button {
             color: #1B396A;
             background-color: white;
@@ -84,24 +79,20 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
             right: 10px;
             border-radius: 10px;
         }
-
         /* Estilos de la tabla */
         table {
             width: 80%;
             margin: auto;
             border-collapse: collapse;
         }
-
         th, td {
             padding: 10px;
             border: 1px solid black;
         }
-
         th {
             background-color: #1B396A;
             color: black;
         }
-
         /* Estilos de los botones */
         .boton-agregar, .boton-editar, .boton-eliminar {
             color: white;
@@ -110,17 +101,14 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
             padding: 5px 10px;
             cursor: pointer;
         }
-
         .boton-agregar {
             margin-bottom: 20px; 
         }
-
         /* Estilos del campo de búsqueda */
         .busqueda {
             margin-top: 20px; 
             margin-bottom: 20px; 
         }
-
         input[type="search"] {
             width: 50%;
             padding: 10px; 
@@ -133,7 +121,6 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
             background-color: white; /* para que el fondo sea blanco */
             border-radius: 10px; /* para que los bordes sean redondeados */
         }
-
         th, td {
             padding: 10px;
             border: 1px solid black;
@@ -151,7 +138,6 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
             right: 20px;
             border-radius: 10px;
         }
-        
         .select,
         #locale {
           width: 100%;
@@ -159,8 +145,19 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
         .like {
           margin-right: 10px;
         }
+        #back-button {
+            float: left;
+            color: white;
+            background-color: #1B396A;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            right: 20px;
+            border-radius: 10px;
+        }
     </style>
-    <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
+    
 </head>
 <body>
     <!-- Encabezado -->
@@ -169,14 +166,12 @@ header('Cache-Control: no-cache, must-revalidate, max-age=0');
         <h2 class="titulo"><b>Gestión de ubicaciones</b></h2>
         <div class="barra"></div>
     </header>
-
     <!-- Contenido principal -->
     <main class="formulario">
     <form id="myForm"  method="post" onsubmit="return validateForm()">
-    <a href="Menu_administrador.php" id="back-button">Regresar</a>
-    <a href="nueba_ubicacion.php" id="new-button" class="boton">Nuevo</a>
+    <a class = "boton" href="Menu_administrador.php" id="back-button">Regresar</a>
+    <a class = "boton" href="nueba_ubicacion.php" id="new-button" >Nuevo</a>
     <?php
-
     // Conectar a la base de datos
     $mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
     // Comprobar si la conexión fue exitosa
