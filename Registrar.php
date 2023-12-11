@@ -1,5 +1,6 @@
 <?php
 session_start();
+ob_start();
 require_once("Clases/Cuso.php");
 // Conectar a la base de datos
 $mysqli = new mysqli('localhost', 'root', 'admin', 'registro');
@@ -48,12 +49,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uso->insert();
         echo "Uso Registrado." . $numeroControl;
         echo "<audio src='interface-1-126517.mp3' autoplay></audio>";
+        /*
+        echo "<script>
+            var messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'Uso Registrado. {$numeroControl}';
+            messageDiv.style.display = 'block';
+            setTimeout(function() {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        </script>";
+        */
         //echo('<script language="javascript">alert("'.'Base de datos inexistente'.'");</script>');
                 // Almacenar los valores de "salon" y "ubicacion" en la sesión de PHP
     } else {
         // El alumno no existe, mostrar un mensaje de error y emitir un sonido de error
         echo "Usuario no registrado." . $numeroControl;
         echo "<audio src='error_sound.mp3' autoplay></audio>";
+        /*
+        echo "<script>
+            var messageDiv = document.getElementById('message');
+            messageDiv.textContent = 'Usuario no registrado. {$numeroControl}';
+            messageDiv.style.display = 'block';
+            setTimeout(function() {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        </script>";
+        */
     }
 }
 // Cerrar la conexión
@@ -164,18 +185,66 @@ $mysqli->close();
             align: center;
             
         }
-
         .button:hover {
             background-color: #807E82;
         }
+        #message {
+            width: 80vw; /* 80% del ancho de la ventana del navegador */
+            height: 80vh; /* 80% de la altura de la ventana del navegador */
+            position: fixed; /* Posicionar el div en relación con la ventana del navegador */
+            top: 10vh; /* Centrar el div verticalmente */
+            left: 10vw; /* Centrar el div horizontalmente */
+            background-color: #fff; /* Color de fondo del div */
+            padding: 20px; /* Espacio interior del div */
+            box-sizing: border-box; /* Incluir el padding y el borde en el ancho y la altura del div */
+            overflow: auto; /* Agregar barras de desplazamiento si el contenido es demasiado grande */
+            display: grid; 
+            grid-template-columns: 0.9fr 3.1fr; 
+            grid-template-rows: 4fr 1fr; 
+            gap: 0px 0px; 
+            grid-template-areas: 
+                "Imagen Información-de-estudiante"
+                "Estado Estado"; 
+            z-index: 1;
+        }
+        #Ubicacion_idUbicacion, #salon, #registrar {
+            z-index: 0;
+        }
+        #message-image {
+            background-color: blue;
+        }
+        #message-info {
+            background-color: orange;
+
+        }
+        #message-text {
+
+            background-color: green;
+            text-align: center;
+        }
+        .Estado { grid-area: Estado; }
+        .Imagen { grid-area: Imagen; }
+        .Información-de-estudiante { grid-area: Información-de-estudiante; }
     </style>
     <link href="./Centro de Información ITVER_files/styles_formulario.css" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <h2 class="titulo"><b>Registrar</b></h2>
         <div class="barra"></div>
     </header>
+    <div id="message" style="display: none;">
+        <div id="message-image" class="Imagen">
+            <!-- Aquí va la imagen -->
+        </div>
+        <div id="message-info" class="Informacion-de-estudiante">
+            <!-- Aquí va la información del alumno -->
+        </div>
+        <div id="message-text" class="Estado">
+            <!-- Aquí va el mensaje -->
+        </div>
+    </div>
     <main class="formulario">
         <form method="POST">
             <div class="form-group">
@@ -197,7 +266,7 @@ $mysqli->close();
                     <input type="checkbox" id="check-activo" name="check-activo" style="display: none;" <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') {echo ($_POST['check-activo']) ? 'checked' : '';} ?>/>
                     <div style="display: grid; justify-content: center; "><p class="button" onclick="toggleCheck()" id = "BotonConfirma" <?php echo ($_SERVER['REQUEST_METHOD'] === 'POST') ? ($_POST['check-activo']) ? 'style = "background-color: grey">Cancelar' : '>Confirmar' : '>Confirmar' ?></p></div>
                     <div id="elementos-ocultos" style="border-style: dotted; border-radius: 15px; padding:15px; display: <?php echo ($_SERVER['REQUEST_METHOD'] === 'POST') ? ($_POST['check-activo']) ? 'block' : 'none' : 'none' ?>;" >
-                    <div style="display: grid; justify-content: center; background-color: green; border-radius: 5px;opacity: 0.8;padding:20px;margin-bottom:8px"><b style = "color: white">Listo para registrar</b></div>
+                    <div id="registrar"style="display: grid; justify-content: center; background-color: green; border-radius: 5px;opacity: 0.8;padding:20px;margin-bottom:8px"><b style = "color: white">Listo para registrar</b></div>
                         <h3>Número de control</h3>
                         
                         <input type="text" id="numero-control" name="numero-control" class="input-text" maxlength="10" pattern="([A-Z]\d{8})|(\d{10})" required placeholder="Ejemplo: A12345678" <?php echo ($_SERVER['REQUEST_METHOD'] === 'POST') ? ($_POST['check-activo']) ? 'autofocus' : 'disabled' : 'disabled' ?>/>
@@ -208,31 +277,29 @@ $mysqli->close();
     </main>
     <script>
         function enableAll() {
-                                document.getElementById('Ubicacion_idUbicacion').disabled = false;
-                                document.getElementById('salon').disabled = false;
-                                document.getElementById('numero-control').disabled = false;
-                        }
+            document.getElementById('Ubicacion_idUbicacion').disabled = false;
+            document.getElementById('salon').disabled = false;
+            document.getElementById('numero-control').disabled = false;
+        }
         function toggleCheck() {
-                            var checkActivo = document.getElementById('check-activo');
-                            checkActivo.checked = !checkActivo.checked;
-                                document.getElementById('Ubicacion_idUbicacion').disabled = checkActivo.checked;
-                                document.getElementById('salon').disabled = checkActivo.checked;
-                                document.getElementById('numero-control').disabled = !checkActivo.checked;
-                                if(checkActivo.checked){
-                                    
-                                    document.getElementById('elementos-ocultos').style['cssText']='border-style: dotted; border-radius: 15px; padding:15px; display:block;';
-                                    document.getElementById('numero-control').focus();
-                                    document.getElementById('BotonConfirma').innerHTML='Cancelar';
-                                    document.getElementById('BotonConfirma').style['cssText']='background-color: grey;';
-                                }
-                                else{
-                                    document.getElementById('elementos-ocultos').style['cssText']='border-style: dotted; border-radius: 15px; padding:15px; display:none';
-                                    document.getElementById('BotonConfirma').innerHTML = "Confirmar";
-                                    document.getElementById('BotonConfirma').style['cssText']='';
-
-                                }
-                        }
-
+            var checkActivo = document.getElementById('check-activo');
+            checkActivo.checked = !checkActivo.checked;
+            document.getElementById('Ubicacion_idUbicacion').disabled = checkActivo.checked;
+                document.getElementById('salon').disabled = checkActivo.checked;
+                document.getElementById('numero-control').disabled = !checkActivo.checked;
+                if(checkActivo.checked){
+                    
+                    document.getElementById('elementos-ocultos').style['cssText']='border-style: dotted; border-radius: 15px; padding:15px; display:block;';
+                    document.getElementById('numero-control').focus();
+                    document.getElementById('BotonConfirma').innerHTML='Cancelar';
+                    document.getElementById('BotonConfirma').style['cssText']='background-color: grey;';
+                }
+                else{
+                    document.getElementById('elementos-ocultos').style['cssText']='border-style: dotted; border-radius: 15px; padding:15px; display:none';
+                    document.getElementById('BotonConfirma').innerHTML = "Confirmar";
+                    document.getElementById('BotonConfirma').style['cssText']='';
+                }
+        }
         document.getElementById("Ubicacion_idUbicacion").addEventListener("change", function() {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "get_salones.php?idUbicacion=" + this.value, true);
@@ -263,5 +330,29 @@ $mysqli->close();
             }, 3500);
         });
     </script>
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($alumno) && $alumno) {
+        echo "<script>
+            var message = document.getElementById('message');
+            var messageText = document.getElementById('message-text');
+            messageText.textContent = 'Uso Registrado. {$numeroControl}';
+            message.style.display = 'grid'; // Mostrar el mensaje
+            setTimeout(function() {
+                message.style.display = 'none'; // Ocultar el mensaje después de 3 segundos
+            }, 3000);
+        </script>";
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        echo "<script>
+            var message = document.getElementById('message');
+            var messageText = document.getElementById('message-text');
+            messageText.textContent = 'Usuario no registrado. {$numeroControl}';
+            message.style.display = 'grid'; // Mostrar el mensaje
+            setTimeout(function() {
+                message.style.display = 'none'; // Ocultar el mensaje después de 3 segundos
+            }, 3000);
+        </script>";
+    }
+    ob_end_flush(); // Enviar la salida del búfer al navegador
+?>
 </body>
 </html>
